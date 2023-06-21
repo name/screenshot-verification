@@ -1,8 +1,10 @@
 ## Screenshot Verification
 
-This open-source tool is specifically designed to verify the absence of error messages after performing a screenshot verification. If an error message is found, details that are available are also displayed.
+This open-source project is specifically designed to verify the absence of error messages after performing a screenshot verification. If an error message is found, details that are available are also displayed.
 
 Simply pass a single screenshot image or a directory of images to the tool and it will extract the required information for you.
+
+This was streamed live on [Kick](https://kick.com/cunjur), you can find the recording on the channel, or tune in for future streams!
 
 ### Requirements
 
