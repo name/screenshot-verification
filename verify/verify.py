@@ -4,31 +4,33 @@ import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
+
 class Verify:
     def __init__(self, screenshot_path):
         self.screenshot_path = screenshot_path
-    
+
     def verify_screenshot(self):
-        #print('Checking Screenshot: ' + self.screenshot_path)
+        # print('Checking Screenshot: ' + self.screenshot_path)
         img = cv2.imread(self.screenshot_path)
         text = pytesseract.image_to_string(img)
         return text
-    
+
     def verify_screenshots(self):
         screenshots = os.listdir(self.screenshot_path)
         for file_name in screenshots:
             print(file_name)
             self.verify_screenshot(file_name)
 
+
 class Classifier:
     def __init__(self, text: str, file: str):
         self.text = text
         self.file = file
-    
+
     def classify(self):
         Log = Logger()
         error = False
-        #print('DEBUG: ' + self.text + '\n\n')
+        # print('DEBUG: ' + self.text + '\n\n')
         for line in self.text.splitlines():
             if "File: " in line:
                 Log.error(self.file, "Windows Boot Manager Error")
@@ -56,11 +58,11 @@ class Classifier:
             if "Safe Mode with Net" in line:
                 Log.error(self.file, "Repair Your Computer Error")
                 error = True
-        
+
         if not error:
             Log.success(self.file, 'No errors detected')
 
-    def diagnose(self, type: str):
+    def diagnose(self, type):
         if type == "Windows Boot Manager":
             errors = []
             for line in self.text.splitlines():
@@ -77,6 +79,7 @@ class Classifier:
                 if "Stop code" in line:
                     errors.append(line)
             return errors
+
 
 class Logger:
     def __init__(self):
